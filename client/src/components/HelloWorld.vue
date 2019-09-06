@@ -15,8 +15,9 @@
 
       <v-flex mb-4>
         <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
+          {{title}}
         </h1>
+        <button v-on:click="reverseMessage">메시지 뒤집기</button>
         <p class="subheading font-weight-regular">
           For help and collaboration with other Vuetify developers,
           <br>please join our online
@@ -87,6 +88,7 @@
 <script>
 export default {
   data: () => ({
+    title : 'Welcome to Vuetify',
     ecosystem: [
       {
         text: 'vuetify-loader',
@@ -99,6 +101,10 @@ export default {
       {
         text: 'awesome-vuetify',
         href: 'https://github.com/vuetifyjs/awesome-vuetify',
+      },
+      {
+        text: 'naver',
+        href: 'https://naver.com',
       },
     ],
     importantLinks: [
@@ -138,5 +144,10 @@ export default {
       },
     ],
   }),
+  methods: {
+    reverseMessage: function () {
+      this.title = this.title.split('').reverse().join('')
+    }
+  }
 };
 </script>

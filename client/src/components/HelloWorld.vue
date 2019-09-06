@@ -101,7 +101,11 @@ export default {
       {
         text: 'awesome-vuetify',
         href: 'https://github.com/vuetifyjs/awesome-vuetify',
-      }
+      },
+      {
+        text: 'naver',
+        href: 'https://naver.com',
+      },
     ],
     importantLinks: [
       {

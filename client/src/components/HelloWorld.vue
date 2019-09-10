@@ -148,6 +148,10 @@ export default {
     reverseMessage: function () {
       this.title = this.title.split('').reverse().join('')
     }
+  },
+  mounted() {
+    console.log('url ::' + process.env.API_URL)
+    console.log('env ::' + process.env.ENV)
   }
-};
+}
 </script>

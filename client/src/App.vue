@@ -1,20 +1,13 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-layout text-center wrap>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-      </v-layout>
-    </v-container>
-    <router-view />
-  </v-app>
+  <MainHome/>
 </template>
 
-<script>
+<script>  
+  import MainHome from "@/views/MainHome.vue"
   export default {
     name: 'App',
-    data: () => ({
-      //
-    }),
+    components: {
+      MainHome
+    }
   }
 </script>

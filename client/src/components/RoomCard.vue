@@ -71,6 +71,8 @@
 </template>
 
 <script>
+  import esCli from '../api/esCli';
+
   export default {
     name: 'RoomCard',
     data: () => ({
@@ -88,7 +90,12 @@
           artist: 'Ellie Goulding',
         },
       ],
-    })
+    }),
+    mounted() {
+      esCli.getExams().then(res => {
+        console.log(res);
+      });
+    },
   };
 </script>
 

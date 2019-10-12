@@ -88,12 +88,7 @@
       </v-container>
     </v-content>
     
-    <v-navigation-drawer
-      v-model="drawerRight"
-      app
-      clipped
-      right
-    ></v-navigation-drawer>
+
   </v-app>
 </template>
 

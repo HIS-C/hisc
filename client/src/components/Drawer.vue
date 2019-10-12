@@ -1,29 +1,29 @@
 <template>
   <v-navigation-drawer
-    id="app-drawer"
-    v-model="inputValue"
-    :src="image"
-    app
-    color="grey darken-2"
-    dark
-    floating
-    mobile-break-point="991"
-    persistent
-    width="210"
+      id="app-drawer"
+      v-model="inputValue"
+      :src="image"
+      app
+      color="grey darken-2"
+      dark
+      floating
+      mobile-break-point="991"
+      persistent
+      width="210"
   >
     <template v-slot:img="attrs">
       <v-img
-        v-bind="attrs"
-        gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)"
+          v-bind="attrs"
+          gradient="to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)"
       />
     </template>
 
     <v-list-item two-line>
       <v-list-item-avatar color="white">
         <v-img
-          src="https://cdn.vuetifyjs.com/images/logos/v.png"
-          height="34"
-          contain
+            src="https://cdn.vuetifyjs.com/images/logos/v.png"
+            height="34"
+            contain
         />
       </v-list-item-avatar>
 
@@ -39,10 +39,10 @@
       <div />
 
       <v-list-item
-        v-for="(link, i) in links"
-        :key="i"
-        :to="link.to"
-        active-class="light-green accent-3"
+          v-for="(link, i) in links"
+          :key="i"
+          :to="link.to"
+          active-class="light-green accent-3"
       >
         <v-list-item-action>
           <v-icon>{{ link.icon }}</v-icon>
@@ -55,53 +55,32 @@
 </template>
 
 <script>
-// Utilities
-  /*import {
-    mapMutations,
-    mapState
-  } from 'vuex'*/
-
   export default {
     props: {
       opened: {
         type: Boolean,
-        default: false
-      }
+        default: false,
+      },
     },
     data: () => ({
-      links: [
-        {
-          to: '/',
-          icon: 'mdi-view-dashboard',
-          text: 'Dashboard'
-        },
-        {
-          to: '/ward',
-          icon: 'mdi-clipboard-outline',
-          text: 'Ward'
-        }
-        // {
-        //   to: '/typography',
-        //   icon: 'mdi-format-font',
-        //   text: 'Typography'
-        // }
-      ]
+      links:
+        [
+          {
+            to: '/',
+            icon: 'mdi-view-dashboard',
+            text: 'Dashboard',
+          },
+          {
+            to: '/ward',
+            icon: 'mdi-clipboard-outline',
+            text: 'Ward',
+          },
+          {
+            to: '/monitor',
+            icon: 'assessment',
+            text: 'Monitor',
+          },
+        ],
     }),
-
-    // computed: {
-    //   ...mapState('app', ['image', 'color']),
-    //   inputValue: {
-    //     get () {
-    //       return this.$store.state.app.drawer
-    //     },
-    //     set (val) {
-    //       this.setDrawer(val)
-    //     }
-    //   }
-    // },
-
-    // methods: {
-    //   ...mapMutations('app', ['setDrawer', 'toggleDrawer'])
-    // }
-  }
+  };
 </script>

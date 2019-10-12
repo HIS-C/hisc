@@ -1,99 +1,143 @@
 <template>
-  <v-card
-      max-width="400"
-      class="mx-auto"
+  <v-container
+    fill-height
+    fluid
+    grid-list-xl
   >
-    <v-system-bar color="pink darken-2"></v-system-bar>
-
-    <v-app-bar dark color="pink">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>My Music</v-toolbar-title>
-
-      <div class="flex-grow-1"></div>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-container
-        class="pa-2"
-        fluid
-    >
-      <v-row>
-        <v-col>
-          <v-card
-              color="#385F73"
-              dark
-          >
-            <v-card-text class="white--text">
-              <div class="headline mb-2">Unlimited music now</div>
-              Listen to your favorite artists and albums whenever and wherever, online and offline.
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn text>Listen Now</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-
-        <v-col
-            v-for="(item, i) in items"
-            :key="i"
-        >
-          <v-card
-              :color="item.color"
-              dark
-          >
-            <v-list-item three-line>
-              <v-list-item-content class="align-self-start">
-                <v-list-item-title
-                    class="headline mb-2"
-                    v-text="item.title"
-                ></v-list-item-title>
-
-                <v-list-item-subtitle v-text="item.artist"></v-list-item-subtitle>
-              </v-list-item-content>
-
-              <v-list-item-avatar
-                  size="125"
-                  tile
-              >
-                <v-img :src="item.src"></v-img>
-              </v-list-item-avatar>
-            </v-list-item>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card>
+    <v-row>
+      <v-col class="d-flex" cols="3">
+        <v-select
+          :items="infectCodes"
+          @input="selInfectCode"
+          label="Solo field"
+          solo
+        ></v-select>
+      </v-col>
+      <!-- <v-col class="d-flex" cols="3">
+        <v-select
+          :items="wards"
+          @input="selWard"
+          label="Solo field"
+          solo
+        ></v-select>
+      </v-col> -->
+      <v-col cols="12">
+        <v-divider class="mx-3 mb-3" />
+      </v-col>
+      <v-col cols="12">
+      <v-card
+        title="test"
+        color="blue-grey lighten-3"
+      >
+        <v-card-title>감염자</v-card-title>
+      </v-card>
+        <v-data-table
+          dense 
+          :headers="headers"
+          :items="filteredItems"
+          :items-per-page="10"
+        />
+      </v-col>
+      <v-col cols="12">
+      <v-card
+        title="test"
+        color="blue-grey lighten-3"
+      >
+        <v-card-title>후보군</v-card-title>
+      </v-card>
+        <v-data-table
+          dense 
+          :headers="headers"
+          :items="filteredItems"
+          :items-per-page="5"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
   import esCli from '../api/esCli';
 
   export default {
-    name: 'RoomCard',
     data: () => ({
-      items: [
+      headers: [
         {
-          color: '#1F7087',
-          src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
-          title: 'Supermodel',
-          artist: 'Foster the People',
+          sortable: false,
+          text: '등록번호',
+          value: '_source.patientId'
         },
         {
-          color: '#952175',
-          src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
-          title: 'Halcyon Days',
-          artist: 'Ellie Goulding',
+          sortable: false,
+          text: '입원일자',
+          value: '_source.admissionDate'
+        },
+        {
+          sortable: false,
+          text: '진료과',
+          value: '_source.deptCode'
+        },
+        {
+          sortable: false,
+          text: '주치의',
+          value: '_source.doctorName'
+        },
+        {
+          sortable: false,
+          text: '감염구분',
+          value: '_source.infectCode'
         },
       ],
+      filter: {
+        ward: "",
+        infectCode: ""
+      },
+      items: [],
+      filteredItems: [],
+      wards: [],
+      infectCodes: ['','CRE','VRE','MRSA','MRAB'],
     }),
+    methods: {
+      selWard: function(arg) {
+        debugger;
+        this.filter.ward = arg;
+        this.setFiler();
+      },
+      selInfectCode: function(arg) {
+        debugger;
+        this.filter.infectCode = arg;
+        this.setFiler();
+      },
+      setFiler: function () {
+        debugger;
+        /*if(this.filter.ward != "") {
+          this.filteredItems = this.items.filter(item => 
+            item._source.ward == this.filter.ward
+          )
+        }*/
+        if(this.filter.infectCode != "") {
+          this.filteredItems = this.items.filter(item => 
+            item._source.infectCode == this.filter.infectCode
+          )
+        }else{
+          this.filteredItems = this.items;
+        }
+      }
+
+    },
     mounted() {
       esCli.getExams().then(res => {
+        debugger;
+        this.items = res;
+        this.filteredItems = res;
         console.log(res);
+      });
+      
+      esCli.getWards().then(res => {
+        res.forEach(element => {
+          this.wards.push(element._source.wardName) ;
+        });
+        console.log(this.wards);
       });
     },
   };

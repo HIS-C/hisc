@@ -10,12 +10,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'DashBoard',
+      name: '대쉬보드',
       component: DashBoard
     },
     {
       path: '/monitor',
-      name: 'Monitor',
+      name: '감염추적관리',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -23,7 +23,7 @@ export default new Router({
     },
     {
       path: '/ward',
-      name: 'Ward',
+      name: '병동정보',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.

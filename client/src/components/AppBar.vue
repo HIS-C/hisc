@@ -20,12 +20,6 @@
     </v-toolbar-title>
 
     <v-spacer />
-
-    <v-text-field
-      class="d-flex"
-      label="Search..."
-      solo
-    />
     
   </v-app-bar>
 </template>

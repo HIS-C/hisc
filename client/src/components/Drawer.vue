@@ -9,7 +9,7 @@
       floating
       mobile-break-point="991"
       persistent
-      width="210"
+      width="230"
   >
     <template v-slot:img="attrs">
       <v-img
@@ -68,17 +68,17 @@
           {
             to: '/',
             icon: 'mdi-view-dashboard',
-            text: 'Dashboard',
+            text: '대쉬보드',
           },
           {
             to: '/ward',
             icon: 'mdi-clipboard-outline',
-            text: 'Ward',
+            text: '병동정보',
           },
           {
             to: '/monitor',
             icon: 'assessment',
-            text: 'Monitor',
+            text: '감염추적관리',
           },
           {
             to: '/table',

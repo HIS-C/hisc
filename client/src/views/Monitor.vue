@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-card-text>Add Monitor View</v-card-text>
     <RoomCard></RoomCard>
   </div>
 </template>

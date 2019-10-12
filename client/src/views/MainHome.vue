@@ -1,6 +1,7 @@
 <template>
   <v-app id="mainHome">
-    <v-app-bar
+    <core-app-bar />
+    <!-- <v-app-bar
       app
       clipped-left
       color="blue-grey"
@@ -15,9 +16,11 @@
         prepend-inner-icon="search"
       ></v-text-field>
       
-    </v-app-bar>
+    </v-app-bar> -->
 
-    <v-navigation-drawer
+    <core-drawer />
+
+    <!-- <v-navigation-drawer
       v-model="drawer"
       app
       clipped
@@ -70,7 +73,7 @@
           </v-list-item>
         </template>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-content>
       <v-container
         fluid
@@ -84,6 +87,13 @@
         </v-row>
       </v-container>
     </v-content>
+    
+    <v-navigation-drawer
+      v-model="drawerRight"
+      app
+      clipped
+      right
+    ></v-navigation-drawer>
   </v-app>
 </template>
 
@@ -91,6 +101,10 @@
 import router from '../router'
 
   export default {
+    components: {
+      CoreDrawer: () => import('@/components/Drawer'),
+      CoreAppBar: () => import('@/components/AppBar')
+    },
     props: {
       source: String,
     },
@@ -99,6 +113,7 @@ import router from '../router'
       drawer: null,
       items: [
         { icon: 'dashboard', text: 'DashBoard' },
+        { icon: 'assessment', text: 'Ward' },
         { icon: 'assessment', text: 'Monitor' },
         { divider: true },
         { heading: 'Labels' },

@@ -1,9 +1,17 @@
 <template>
-  <v-card-text>Add Monitor View</v-card-text>
+  <div>
+    <v-card-text>Add Monitor View</v-card-text>
+    <RoomCard></RoomCard>
+  </div>
 </template>
 
 <script>
-export default {
+  import RoomCard from '../components/RoomCard'
+
+  export default {
+    components: {
+      RoomCard
+    },
   mounted() {
     // TODO remove
     console.log(process.env)

@@ -1,0 +1,169 @@
+PUT _template/template_patient
+{
+  "index_patterns": [
+    "patient*"
+  ],
+  "mappings": {
+    "properties": {
+      "patientId": {
+        "type": "long"
+      },
+      "patientName": {
+        "type": "keyword"
+      },
+      "gender": {
+        "type": "keyword"
+      },
+      "birthDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      }
+    }
+  }
+}
+
+PUT _template/template_admission
+{
+  "index_patterns": [
+    "admission*"
+  ],
+  "mappings": {
+    "properties": {
+      "patientId": {
+        "type": "long"
+      },
+      "admissionDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      },
+      "dischargeDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      }
+    }
+  }
+}
+
+PUT _template/template_transfer
+{
+  "index_patterns": [
+    "transfer*"
+  ],
+  "mappings": {
+    "properties": {
+      "patientId": {
+        "type": "long"
+      },
+      "transferStrDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      },
+      "transferEndDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      },
+      "deptCode": {
+        "type": "keyword"
+      },
+      "wardId": {
+        "type": "keyword"
+      },
+      "roomId": {
+        "type": "keyword"
+      },
+      "doctorName": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+PUT _template/template_exam
+{
+  "index_patterns": [
+    "exam*"
+  ],
+  "mappings": {
+    "properties": {
+      "patientId": {
+        "type": "long"
+      },
+      "admissionDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      },
+      "orderDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      },
+      "orderSno": {
+        "type": "long"
+      },
+      "deptCode": {
+        "type": "keyword"
+      },
+      "orderCode": {
+        "type": "keyword"
+      },
+      "orderName": {
+        "type": "keyword"
+      },
+      "orderExecDate": {
+        "type": "date",
+        "format": [
+          "yyyy-MM-dd"
+        ]
+      },
+      "orderResult": {
+        "type": "keyword"
+      },
+      "infectCode": {
+        "type": "keyword"
+      },
+      "mdro": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+PUT _template/template_ward
+{
+  "index_patterns": [
+    "ward*"
+  ],
+  "mappings": {
+    "properties": {
+      "wardId": {
+        "type": "keyword"
+      },
+      "wardName": {
+        "type": "keyword"
+      },
+      "rooms": {
+        "properties": {
+          "roomId": {
+            "type": "keyword"
+          },
+          "roomName": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

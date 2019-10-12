@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
   <v-data-iterator
-    :items="items"
+    :items="wards"
     :items-per-page.sync="itemsPerPage"
     hide-default-footer
   >
@@ -9,7 +9,7 @@
         <v-row>
           <v-col
             v-for="item in props.items"
-            :key="item.ward"
+            :key="item._source.wordId"
             cols="12"
             sm="6"
             md="4"
@@ -19,51 +19,30 @@
       class="mx-auto"
       max-width="600"
     >
-
       <v-card-title>
-        <div>{{item.ward}}</div>
+        <div>{{item._source.wardName}}</div>
       </v-card-title>
-
-      <!-- <v-card-actions>
-
-        <div class="flex-grow-1"></div>
-
-        <v-btn
-          icon
-          @click="show = !show"
-        >
-          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-        </v-btn>
-      </v-card-actions>
-
-      <v-expand-transition>
-        <div v-show="show">
-          <v-row>
-              <v-col>
-              <v-card color="blue">
-                  <v-card-text>01</v-card-text>
-              </v-card>
-              </v-col>
-          </v-row>
-          <v-row>
-              <v-col>
-              02
-              </v-col>
-          </v-row>
-        </div>
-      </v-expand-transition> -->
     </v-card>
           </v-col>
         </v-row>
   </template>
   </v-data-iterator>
+  <v-navigation-drawer
+      v-model="drawerRight"
+      app
+      clipped
+      right
+  ></v-navigation-drawer>
   </v-container>
 </template>
 
 <script>
+  import esCli from '../api/esCli';
+
   export default {
     data: () => ({
       show: false,
+      wards : [],
       items : [
         {
           ward : '153W'
@@ -166,5 +145,10 @@
         }
       ]
     }),
+    mounted() {
+      esCli.getWards().then(res => {
+        this.wards = res
+      });
+    }
   }
 </script>

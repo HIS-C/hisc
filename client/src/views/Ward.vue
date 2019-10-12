@@ -17,11 +17,39 @@
           >
     <v-card
       class="mx-auto"
-      max-width="600"
+      color="#26c6da"
+      dark
+      max-width="400"
     >
       <v-card-title>
-        <div>{{item._source.wardName}}</div>
+        <span class="title font-weight-light">{{item._source.wardName}}</span>
       </v-card-title>
+        <v-row
+            align="center"
+            justify="center"
+          >
+          <span class="mr-1">총환자수</span>
+          <span class="subheading mr-1">12</span>
+          <span class="mr-1"> / 총감염자수</span>
+          <span class="subheading mr-1">0</span>
+        </v-row>
+      <v-card-text class="body-1">
+        <v-row
+          >
+          <v-col cols="6"><span class="green mr-1">MRSA : {{test.MRSA}}</span></v-col>
+          <v-col cols="6"><span class="light-blue mr-1">VRSA : {{test.VRSA}}</span></v-col> 
+        </v-row>
+        <v-row
+          >
+          <v-col cols="6"><span class="light-green mr-1">MRAB : {{test.MRAB}}</span></v-col> 
+          <v-col cols="6"><span class="blue mr-1">MRPA : {{test.MRPA}}</span> </v-col>
+        </v-row>
+        <v-row
+          >
+          <v-col cols="6"><span class="red mr-1">CRE : {{test.CRE}}</span> </v-col> 
+          <v-col cols="6"><span class="purple mr-1">VRE : {{test.VRE}}</span> </v-col>
+        </v-row>
+      </v-card-text>
     </v-card>
           </v-col>
         </v-row>
@@ -43,107 +71,15 @@
     data: () => ({
       show: false,
       wards : [],
-      items : [
-        {
-          ward : '153W'
-        },
-        {
-          ward : '154W'
-        },
-        {
-          ward : '155W'
-        },
-        {
-          ward : '157W'
-        },
-        {
-          ward : '161W'
-        },
-        {
-          ward : '162W'
-        },
-        {
-          ward : '163W'
-        },
-        {
-          ward : '164W'
-        },
-        {
-          ward : '165W'
-        },
-        {
-          ward : '166W'
-        },
-        {
-          ward : '171W'
-        },
-        {
-          ward : '172W'
-        },
-        {
-          ward : '173W'
-        },
-        {
-          ward : '174W'
-        },
-        {
-          ward : '175W'
-        },
-        {
-          ward : '176W'
-        },
-        {
-          ward : '178W'
-        },
-        {
-          ward : '181W'
-        },
-        {
-          ward : '182W'
-        },
-        {
-          ward : '183W'
-        },
-        {
-          ward : '185W'
-        },
-        {
-          ward : '186W'
-        },
-        {
-          ward : '188W'
-        },
-        {
-          ward : '190W'
-        },
-        {
-          ward : '1DER'
-        },
-        {
-          ward : '1HRPU'
-        },
-        {
-          ward : '1NNR'
-        },
-        {
-          ward : 'ER'
-        },
-        {
-          ward : 'ICU-C'
-        },
-        {
-          ward : 'ICU-E'
-        },
-        {
-          ward : 'ICU-M'
-        },
-        {
-          ward : 'ICU-N'
-        },
-        {
-          ward : 'ICU-S'
-        }
-      ]
+      test : {
+        MRSA : 0,
+        VRSA : 0,
+        MRAB : 1,
+        MRPA : 0,
+        VRE : 2,
+        CRE : 0,
+        
+      }
     }),
     mounted() {
       esCli.getWards().then(res => {

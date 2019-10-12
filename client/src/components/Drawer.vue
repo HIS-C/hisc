@@ -80,6 +80,11 @@
             icon: 'assessment',
             text: 'Monitor',
           },
+          {
+            to: '/table',
+            icon: 'assessment',
+            text: 'Table',
+          },
         ],
     }),
   };

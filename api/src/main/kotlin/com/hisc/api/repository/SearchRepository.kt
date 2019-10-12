@@ -1,14 +1,10 @@
 package com.hisc.api.repository
 
+import com.hisc.api.entity.Exam
+import com.hisc.api.entity.WardReqVo
+
 interface SearchRepository {
-//    fun searchConsultItems(hospitalNid: Long,
-//                           keyword: String,
-//                           receiptYmd: String,
-//                           consultItemTypes: List<ConsultItemType>?,
-//                           feeSupertypeCodes: List<FeeSupertype>?,
-//                           pageable: Pageable): PageVo<ConsultItemVo>
-//
-//    fun addConsultItem(hospitalNid: Long, consultItemRequestVo: ConsultItemRequestVo)
-//    fun addDiseaseToConsultItems(indexName: String, tvDiseases: List<TvDisease>)
-//    fun addFeeToConsultItems(indexName: String, tcCustomFees: List<TcCustomFee>)
+    fun addItems(items: List<Any>)
+    fun addWards(wards: List<WardReqVo>)
+    fun addExams(exams: List<Exam>)
 }

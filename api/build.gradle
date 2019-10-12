@@ -54,12 +54,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-//    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
-
-//    implementation 'com.google.guava:guava:27.0.1-jre'
-//    implementation 'io.protostuff:protostuff-core:1.5.9'
-//    implementation 'io.protostuff:protostuff-runtime:1.5.9'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
@@ -73,6 +67,18 @@ dependencies {
     
     kapt 'org.springframework.boot:spring-boot-configuration-processor'
     kapt "com.querydsl:querydsl-apt:${querydslVersion}:jpa"
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.3.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    // mock-inline
+    testImplementation 'org.mockito:mockito-inline:2.23.4'
+    testImplementation 'org.mockito:mockito-core:2.23.4'
+    testImplementation('com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0') {
+        exclude group: 'org.jetbrains.kotlin'
+        exclude group: 'org.mockito'
+    }
 }
 
 compileJava.dependsOn(processResources)

@@ -38,13 +38,25 @@ PUT _template/template_admission
         "type": "date",
         "format": [
           "yyyy-MM-dd"
-        ]
+        ],
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "null_value": "NULL"
+          }
+        }
       },
       "dischargeDate": {
         "type": "date",
         "format": [
           "yyyy-MM-dd"
-        ]
+        ],
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "null_value": "NULL"
+          }
+        }
       }
     }
   }

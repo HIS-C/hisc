@@ -80,11 +80,12 @@
             icon: 'assessment',
             text: '감염추적관리',
           },
-          {
-            to: '/table',
-            icon: 'assessment',
-            text: 'Table',
-          },
+          // ,
+          // {
+          //   to: '/table',
+          //   icon: 'assessment',
+          //   text: 'Table',
+          // },
         ],
     }),
   };

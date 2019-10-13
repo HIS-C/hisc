@@ -143,27 +143,26 @@
           this.filteredItems = this.items;
         }
       },
+      init: function() {
 
+        console.log('In init!!!!!!!!!!!!!!!!!!!!')
+        esCli.getCurrentExams().then(res => {
+          this.items = res;
+          this.filteredItems = res;
+        });
+
+        esCli.getTransfers().then(res => {
+          console.log(res);
+          let persons = res.map(it => it._source.patientId);
+          esCli.getPersons(persons).then(res => {
+            this.items2 = res;
+          });
+        });
+      }
     },
     mounted() {
-      esCli.getCurrentExams().then(res => {
-        this.items = res;
-        this.filteredItems = res;
-      });
+      this.init()
 
-      esCli.getWards().then(res => {
-        res.forEach(element => {
-          this.wards.push(element._source.wardName);
-        });
-      });
-
-      esCli.getTransfers().then(res => {
-        console.log(res);
-        let persons = res.map(it => it._source.patientId);
-        esCli.getPersons(persons).then(res => {
-          this.items2 = res;
-        });
-      });
     },
   };
 </script>

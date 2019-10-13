@@ -28,13 +28,13 @@ export default {
     return this.search({
       index: 'patient',
       body: {
-        "query": {
-          "terms": {
-            "patientId": params
-          }
-        }
-      }
-    })
+        'query': {
+          'terms': {
+            'patientId': params,
+          },
+        },
+      },
+    });
   },
   /**
    * 병동목록조회
@@ -42,6 +42,29 @@ export default {
   getWards() {
     return this.search({
       index: 'ward',
+    });
+  },
+  getAdmissionsWithVo() {
+    return this.search({
+      index: 'admission',
+      body: {
+        size: 1000,
+        query: {
+          'term': {
+            'dischargeDate.keyword': {
+              'value': 'NULL',
+            },
+          },
+        },
+      },
+    }).then(res => {
+      let persons = res.map(it => it._source.patientId);
+      let sorted = res.map(it => it._source.admissionDate).slice(0).sort();
+      return {
+        persons: persons,
+        min: sorted[0],
+        max: sorted[sorted.length - 1],
+      };
     });
   },
   getAdmissions() {
@@ -65,50 +88,50 @@ export default {
   getTransfers() {
     return new Promise((resolve) => {
       this.getAdmissions().then(res => {
-        let persons = res.map(it => it._source.patientId)
-        let sorted = res.map(it => it.orderDate).slice(0).sort();
+        let persons = res.map(it => it._source.patientId);
+        let sorted = res.map(it => it._source.admissionDate).slice(0).sort();
 
-          this.search({
-            index: 'transfer',
-            body: {
-              'query': {
-                'terms': {
-                  'patientId': persons,
-                },
+        this.search({
+          index: 'transfer',
+          body: {
+            'query': {
+              'terms': {
+                'patientId': persons,
               },
             },
-          }).then(res => {
+          },
+        }).then(res => {
             let transfers = res.map(it => it._source.wardId);
             resolve(this.search({
               index: 'transfer',
               body: {
-                "query": {
-                  "bool": {
-                    "must": [
+                'query': {
+                  'bool': {
+                    'must': [
                       {
-                        "terms": {
-                          "wardId": transfers
-                        }
+                        'terms': {
+                          'wardId': transfers,
+                        },
                       },
                       {
-                        "terms": {
-                          "patientId": persons
-                        }
+                        'terms': {
+                          'patientId': persons,
+                        },
                       },
                       {
-                        "range": {
-                          "transferStrDate": {
+                        'range': {
+                          'transferStrDate': {
                             'gte': sorted[0],
                             'lte': sorted[sorted.length - 1],
-                          }
-                        }
-                      }
-                    ]
-                  }
+                          },
+                        },
+                      },
+                    ],
+                  },
                 },
               },
-            }))
-          }
+            }));
+          },
         );
       });
     });
@@ -126,15 +149,59 @@ export default {
     }
 
     return this.search(query);
-  }
-  ,
+  },
+  //GET transfer/_search
+
+  // }
+  getCurrentDate() {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    return yyyy + '-' + mm + '-' + dd
+  },
+  getWardPersons(persons) {
+    let curr = this.getCurrentDate()
+    return this.search({
+      index: 'transfer',
+      body: {
+        "size": 1000,
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "terms": {
+                  "patientId": persons
+                }
+              },
+              {
+                "range": {
+                  "transferStrDate": {
+                    "lte": curr
+                  }
+                }
+              },
+              {
+                "range": {
+                  "transferEndDate": {
+                    "gte": curr
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    })
+  },
   /**
    * 입원환자들의 검사결과목록조회
    */
   getCurrentExams() {
     return new Promise((resolve) => {
       this.getAdmissions().then(res => {
-        let sorted = res.map(it => it.orderDate).slice(0).sort();
+        let sorted = res.map(it => it._source.admissionDate).slice(0).sort();
         resolve(
           this.getExams(
             {
@@ -170,5 +237,5 @@ export default {
         );
       });
     });
-  }
+  },
 };

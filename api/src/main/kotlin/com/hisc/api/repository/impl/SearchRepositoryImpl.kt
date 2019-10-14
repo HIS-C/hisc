@@ -25,12 +25,10 @@ class SearchRepositoryImpl(
                 addPatient(item)
             } else if (item is Admission) {
                 addAdmission(item)
-//                println("InAdd")
             } else if (item is Transfer) {
                 addTransfer(item)
             } else if (item is Exam) {
                 addExam(item)
-//                println("InExam")
             }
 
             if (idx++ == 100) {

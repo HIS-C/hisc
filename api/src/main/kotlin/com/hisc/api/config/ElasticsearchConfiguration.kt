@@ -5,7 +5,6 @@ import io.inbot.eskotlinwrapper.IndexDAO
 import io.inbot.eskotlinwrapper.JacksonModelReaderAndWriter
 import org.elasticsearch.client.RestHighLevelClient
 import org.elasticsearch.client.crudDao
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import kotlin.reflect.KClass

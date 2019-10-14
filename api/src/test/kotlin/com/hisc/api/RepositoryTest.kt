@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.junit4.SpringRunner
+import java.time.LocalDate
 
 
 @RunWith(SpringRunner::class)
@@ -39,8 +40,29 @@ class RepositoryTest {
 
     @Test
     fun addItems() {
-        val patients = patientRepository.findAll()
-        searchRepository.addItems(patients)
+        val admissions = admissionRepository.findAll()
+        val exams = examRepository.findAll()
+        val map: MutableMap<LocalDate, MutableList<Any>> = mutableMapOf()
+        admissions.forEach {
+            if (map.containsKey(it.admissionDate)) {
+                map[it.admissionDate]?.add(it)
+            } else {
+                map[it.admissionDate] = mutableListOf(it as Any)
+            }
+        }
+        exams.forEach {
+            if (map.containsKey(it.orderDate)) {
+                map[it.orderDate]?.add(it)
+            } else {
+                map[it.orderDate] = mutableListOf(it as Any)
+            }
+        }
+        val sortedMap = map.toSortedMap()
+        sortedMap.keys.forEach {
+            sortedMap[it]?.let { list ->
+                searchRepository.addItems(list)
+            }
+        }
     }
 
     @Test
